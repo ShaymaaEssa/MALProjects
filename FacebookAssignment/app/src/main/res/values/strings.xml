@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">FacebookAssignment</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="btn_facebookact_like">Like</string>
+    <string name="btn_facebookact_comment">Comment</string>
+    <string name="btn_facebookact_share">Share</string>
+    <string name="txt_facebookact_desc">Description</string>
+    <string name="txt_facebookact_name">Test Test1</string>
+    <string name="txt_facebookact_time">5 hrs</string>
+</resources>
