@@ -27,12 +27,14 @@ public class URLConnector extends AsyncTask<String,Void,String>{
     Context context;
     JSONParser parser;
     AsyncTaskFinishListener finishListener;
+    ErrorHandling errorHandling;
 
 
-    public URLConnector (Context context,JSONParser parser,AsyncTaskFinishListener finishListener){
+    public URLConnector (Context context,JSONParser parser,AsyncTaskFinishListener finishListener,ErrorHandling errorHandling){
         this.context = context;
         this.parser = parser;
         this.finishListener = finishListener;
+        this.errorHandling = errorHandling;
     }
     public void executeURL (String urlStr){
         this.urlStr = urlStr;
@@ -100,18 +102,16 @@ public class URLConnector extends AsyncTask<String,Void,String>{
     @Override
     protected void onPostExecute(String s) {
         //to handle exception in doInBackGround method
-        if (mException instanceof MalformedURLException)
-            Toast.makeText(context,"There is Malformed URL Exception",Toast.LENGTH_SHORT).show();
-        else if (mException instanceof ProtocolException)
-            Toast.makeText(context,"There is Protocol Exception in the connection",Toast.LENGTH_SHORT).show();
-        else if (mException instanceof IOException)
-            Toast.makeText(context,"There is IO Exception",Toast.LENGTH_SHORT).show();
+        if(mException != null)
+        {
+            errorHandling.errorExceptionHandling(mException);
+        }
         else
             try {
                 if (finishListener != null)
                      finishListener.notifyUpdateData(parser.dataParsing(s));
             }catch (JSONException e){
-                Toast.makeText(context,"Error in handling Json data",Toast.LENGTH_SHORT).show();
+               errorHandling.errorExceptionHandling(e);
             }
 
 

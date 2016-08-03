@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class FacebookActivity extends ActionBarActivity implements AsyncTaskFinishListener {
+public class FacebookActivity extends ActionBarActivity implements AsyncTaskFinishListener,ErrorHandling{
 
     Toolbar toolbar;
     ListView listView;
@@ -57,7 +57,7 @@ public class FacebookActivity extends ActionBarActivity implements AsyncTaskFini
         String urlStr = "https://dl.dropboxusercontent.com/s/7rvknz9e6tfprun/facebookFeed.json";
        // new PostInformation().execute(urlStr);
 
-        urlConnector = new URLConnector(getApplicationContext(),new FaceBookParser(),this);
+        urlConnector = new URLConnector(getApplicationContext(),new FaceBookParser(),this,this);
         urlConnector.executeURL(urlStr);
 
         adpt = new PostAdapter(this,R.layout.facebook_item,posts);
@@ -94,6 +94,16 @@ public class FacebookActivity extends ActionBarActivity implements AsyncTaskFini
     }
 
 
+    @Override
+    public void errorExceptionHandling(Exception mException) {
+        if (mException instanceof MalformedURLException)
+            Toast.makeText(getApplicationContext(),"There is Malformed URL Exception",Toast.LENGTH_SHORT).show();
+        else if (mException instanceof ProtocolException)
+            Toast.makeText(getApplicationContext(),"There is Protocol Exception in the connection",Toast.LENGTH_SHORT).show();
+        else if (mException instanceof IOException)
+            Toast.makeText(getApplicationContext(),"There is IO Exception",Toast.LENGTH_SHORT).show();
+        else if (mException instanceof  JSONException)
+            Toast.makeText(getApplicationContext(),"Error in handling Json data",Toast.LENGTH_SHORT).show();
 
-
+    }
 }
