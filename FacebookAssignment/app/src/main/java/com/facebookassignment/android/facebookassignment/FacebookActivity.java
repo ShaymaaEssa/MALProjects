@@ -57,7 +57,7 @@ public class FacebookActivity extends ActionBarActivity implements AsyncTaskFini
         String urlStr = "https://dl.dropboxusercontent.com/s/7rvknz9e6tfprun/facebookFeed.json";
        // new PostInformation().execute(urlStr);
 
-        urlConnector = new URLConnector(getApplicationContext(),new FaceBookParser(),this,this);
+        urlConnector = new URLConnector(new FaceBookParser(),this,this);
         urlConnector.executeURL(urlStr);
 
         adpt = new PostAdapter(this,R.layout.facebook_item,posts);

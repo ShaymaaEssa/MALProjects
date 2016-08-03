@@ -23,15 +23,12 @@ public class URLConnector extends AsyncTask<String,Void,String>{
     HttpURLConnection urlConnection ;
     BufferedReader reader;
     Exception mException;
-    String errorMsg;
-    Context context;
     JSONParser parser;
     AsyncTaskFinishListener finishListener;
     ErrorHandling errorHandling;
 
 
-    public URLConnector (Context context,JSONParser parser,AsyncTaskFinishListener finishListener,ErrorHandling errorHandling){
-        this.context = context;
+    public URLConnector (JSONParser parser,AsyncTaskFinishListener finishListener,ErrorHandling errorHandling){
         this.parser = parser;
         this.finishListener = finishListener;
         this.errorHandling = errorHandling;
